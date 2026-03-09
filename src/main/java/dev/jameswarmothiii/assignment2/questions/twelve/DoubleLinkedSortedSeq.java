@@ -24,7 +24,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
   public static DoubleLinkedSortedSeq concatenation(
       DoubleLinkedSortedSeq firstSequence, DoubleLinkedSortedSeq secondSequence) {
     if (firstSequence == null || secondSequence == null) {
-      throw new NullPointerException("One of the sequences is null");
+      throw DoubleLinkedSortedSeqException.oneSequenceIsNull();
     }
 
     DoubleLinkedSortedSeq answer = new DoubleLinkedSortedSeq();
@@ -80,7 +80,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
 
   public void addAll(DoubleLinkedSortedSeq addend) {
     if (addend == null) {
-      throw new NullPointerException("addend is null");
+      throw DoubleLinkedSortedSeqException.addendIsNull();
     }
 
     if (addend.manyItems == 0) {
@@ -98,7 +98,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
 
   public void advance() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSortedSeqException.noCurrentElement();
     }
 
     currentIndex++;
@@ -111,13 +111,13 @@ public class DoubleLinkedSortedSeq implements Cloneable {
       copiedSequence.headNode = copyNodeChain(headNode);
       return copiedSequence;
     } catch (CloneNotSupportedException cloneNotSupportedException) {
-      throw new AssertionError("Clone should be supported", cloneNotSupportedException);
+      throw DoubleLinkedSortedSeqException.cloneShouldBeSupported(cloneNotSupportedException);
     }
   }
 
   public double getCurrent() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSortedSeqException.noCurrentElement();
     }
 
     return nodeAt(currentIndex).dataValue;
@@ -129,7 +129,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
 
   public void removeCurrent() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSortedSeqException.noCurrentElement();
     }
 
     if (currentIndex == 0) {
@@ -152,7 +152,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
 
   public double getElementAt(int indexValue) {
     if (indexValue < 0 || indexValue >= manyItems) {
-      throw new IndexOutOfBoundsException("index: " + indexValue + ", size: " + manyItems);
+      throw DoubleLinkedSortedSeqException.indexOutOfBounds(indexValue, manyItems);
     }
 
     return nodeAt(indexValue).dataValue;
@@ -160,7 +160,7 @@ public class DoubleLinkedSortedSeq implements Cloneable {
 
   public void setCurrentToIndex(int indexValue) {
     if (indexValue < 0 || indexValue >= manyItems) {
-      throw new IndexOutOfBoundsException("index: " + indexValue + ", size: " + manyItems);
+      throw DoubleLinkedSortedSeqException.indexOutOfBounds(indexValue, manyItems);
     }
 
     currentIndex = indexValue;

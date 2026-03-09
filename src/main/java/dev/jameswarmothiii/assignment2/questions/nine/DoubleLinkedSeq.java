@@ -87,7 +87,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public void addAll(DoubleLinkedSeq addend) {
     if (addend == null) {
-      throw new NullPointerException("addend is null");
+      throw DoubleLinkedSeqException.addendIsNull();
     }
 
     if (addend.manyNodes == 0) {
@@ -111,7 +111,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public void advance() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSeqException.noCurrentElement();
     }
 
     previousNode = currentNode;
@@ -163,13 +163,13 @@ public class DoubleLinkedSeq implements Cloneable {
       copiedSequence.manyNodes = manyNodes;
       return copiedSequence;
     } catch (CloneNotSupportedException cloneNotSupportedException) {
-      throw new AssertionError("Clone should be supported", cloneNotSupportedException);
+      throw DoubleLinkedSeqException.cloneShouldBeSupported(cloneNotSupportedException);
     }
   }
 
   public static DoubleLinkedSeq concatenation(DoubleLinkedSeq s1, DoubleLinkedSeq s2) {
     if (s1 == null || s2 == null) {
-      throw new IllegalArgumentException("One of the sequences is null");
+      throw DoubleLinkedSeqException.oneSequenceIsNull();
     }
 
     DoubleLinkedSeq answer = new DoubleLinkedSeq();
@@ -180,7 +180,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public double getCurrent() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSeqException.noCurrentElement();
     }
 
     return currentNode.dataValue;
@@ -192,7 +192,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public void removeCurrent() {
     if (!isCurrent()) {
-      throw new IllegalStateException("No current element");
+      throw DoubleLinkedSeqException.noCurrentElement();
     }
 
     if (currentNode == headNode) {
@@ -242,7 +242,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public void removeFront() {
     if (manyNodes == 0) {
-      throw new IllegalStateException("Sequence is empty");
+      throw DoubleLinkedSeqException.sequenceIsEmpty();
     }
 
     DoubleNode removedHeadNode = headNode;
@@ -312,7 +312,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public double getElementAt(int indexValue) {
     if (indexValue < 0 || indexValue >= manyNodes) {
-      throw new IndexOutOfBoundsException("index: " + indexValue + ", size: " + manyNodes);
+      throw DoubleLinkedSeqException.indexOutOfBounds(indexValue, manyNodes);
     }
 
     DoubleNode nodeAtIndex = headNode;
@@ -325,7 +325,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   public void setCurrentToIndex(int indexValue) {
     if (indexValue < 0 || indexValue >= manyNodes) {
-      throw new IndexOutOfBoundsException("index: " + indexValue + ", size: " + manyNodes);
+      throw DoubleLinkedSeqException.indexOutOfBounds(indexValue, manyNodes);
     }
 
     previousNode = null;
@@ -339,7 +339,7 @@ public class DoubleLinkedSeq implements Cloneable {
 
   private void ensureCanIncreaseSizeByOne() {
     if (manyNodes == Integer.MAX_VALUE) {
-      throw new OutOfMemoryError("Sequence size overflow");
+      throw DoubleLinkedSeqException.sequenceSizeOverflow();
     }
   }
 
@@ -347,7 +347,7 @@ public class DoubleLinkedSeq implements Cloneable {
     long sumValue = (long) firstValue + secondValue;
 
     if (sumValue > Integer.MAX_VALUE) {
-      throw new OutOfMemoryError("Sequence size overflow");
+      throw DoubleLinkedSeqException.sequenceSizeOverflow();
     }
 
     return (int) sumValue;

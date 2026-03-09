@@ -36,7 +36,7 @@ public class DoubleNode {
 
   public static DoubleNode listPosition(DoubleNode headNode, int positionValue) {
     if (positionValue <= 0) {
-      throw new IllegalArgumentException("positionValue is not positive: " + positionValue);
+      throw DoubleNodeException.isNotPositive(positionValue);
     }
 
     DoubleNode currentNode = headNode;

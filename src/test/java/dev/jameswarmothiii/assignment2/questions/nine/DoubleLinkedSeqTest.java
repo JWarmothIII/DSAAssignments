@@ -46,7 +46,7 @@ class DoubleLinkedSeqTest {
   void getCurrentShouldThrowWhenNoCurrentElementExists() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::getCurrent);
+    assertThrows(DoubleLinkedSeqException.class, sequence::getCurrent);
   }
 
   @Test
@@ -79,7 +79,7 @@ class DoubleLinkedSeqTest {
   void advanceShouldThrowWhenNoCurrentElementExists() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::advance);
+    assertThrows(DoubleLinkedSeqException.class, sequence::advance);
   }
 
   @Test
@@ -201,7 +201,7 @@ class DoubleLinkedSeqTest {
   void removeCurrentShouldThrowWhenNoCurrentElementExists() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::removeCurrent);
+    assertThrows(DoubleLinkedSeqException.class, sequence::removeCurrent);
   }
 
   @Test
@@ -233,7 +233,7 @@ class DoubleLinkedSeqTest {
   void addAllShouldThrowWhenAddendIsNull() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(NullPointerException.class, () -> sequence.addAll(null));
+    assertThrows(DoubleLinkedSeqException.class, () -> sequence.addAll(null));
   }
 
   @Test
@@ -260,8 +260,10 @@ class DoubleLinkedSeqTest {
   void concatenationShouldThrowWhenEitherArgumentIsNull() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(IllegalArgumentException.class, () -> DoubleLinkedSeq.concatenation(sequence, null));
-    assertThrows(IllegalArgumentException.class, () -> DoubleLinkedSeq.concatenation(null, sequence));
+    assertThrows(
+        DoubleLinkedSeqException.class, () -> DoubleLinkedSeq.concatenation(sequence, null));
+    assertThrows(
+        DoubleLinkedSeqException.class, () -> DoubleLinkedSeq.concatenation(null, sequence));
   }
 
   @Test
@@ -325,7 +327,7 @@ class DoubleLinkedSeqTest {
   void removeFrontShouldThrowWhenSequenceIsEmpty() {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::removeFront);
+    assertThrows(DoubleLinkedSeqException.class, sequence::removeFront);
   }
 
   @Test
@@ -381,8 +383,8 @@ class DoubleLinkedSeqTest {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
     sequence.addEnd(11.0);
 
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.getElementAt(-1));
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.getElementAt(1));
+    assertThrows(DoubleLinkedSeqException.class, () -> sequence.getElementAt(-1));
+    assertThrows(DoubleLinkedSeqException.class, () -> sequence.getElementAt(1));
   }
 
   @Test
@@ -403,7 +405,7 @@ class DoubleLinkedSeqTest {
     DoubleLinkedSeq sequence = new DoubleLinkedSeq();
     sequence.addEnd(1.0);
 
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.setCurrentToIndex(-1));
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.setCurrentToIndex(1));
+    assertThrows(DoubleLinkedSeqException.class, () -> sequence.setCurrentToIndex(-1));
+    assertThrows(DoubleLinkedSeqException.class, () -> sequence.setCurrentToIndex(1));
   }
 }

@@ -60,7 +60,7 @@ class IntLinkedBagTest {
   void addAllBagShouldThrowWhenAddendIsNull() {
     IntLinkedBag bag = new IntLinkedBag();
 
-    assertThrows(IllegalArgumentException.class, () -> bag.addAll((IntLinkedBag) null));
+    assertThrows(IntLinkedBagException.class, () -> bag.addAll((IntLinkedBag) null));
   }
 
   @Test
@@ -180,13 +180,13 @@ class IntLinkedBagTest {
   void unionShouldThrowWhenFirstBagIsNull() {
     IntLinkedBag bag = new IntLinkedBag();
 
-    assertThrows(IllegalArgumentException.class, () -> IntLinkedBag.union(null, bag));
+    assertThrows(IntLinkedBagException.class, () -> IntLinkedBag.union(null, bag));
   }
 
   @Test
   void unionShouldThrowWhenSecondBagIsNull() {
     IntLinkedBag bag = new IntLinkedBag();
 
-    assertThrows(IllegalArgumentException.class, () -> IntLinkedBag.union(bag, null));
+    assertThrows(IntLinkedBagException.class, () -> IntLinkedBag.union(bag, null));
   }
 }

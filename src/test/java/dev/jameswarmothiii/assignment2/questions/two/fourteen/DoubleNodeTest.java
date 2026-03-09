@@ -76,7 +76,7 @@ class DoubleNodeTest {
   void listPositionShouldThrowForNonPositivePosition() {
     DoubleNode headNode = new DoubleNode(10.0, null, null);
 
-    assertThrows(IllegalArgumentException.class, () -> DoubleNode.listPosition(headNode, 0));
+    assertThrows(DoubleNodeException.class, () -> DoubleNode.listPosition(headNode, 0));
   }
 
   @Test

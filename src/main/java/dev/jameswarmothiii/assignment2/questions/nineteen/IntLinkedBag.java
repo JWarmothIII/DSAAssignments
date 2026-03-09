@@ -27,7 +27,7 @@ public class IntLinkedBag implements Cloneable {
 
   public void addAll(IntLinkedBag addend) {
     if (addend == null) {
-      throw new IllegalArgumentException("addend is null.");
+      throw IntLinkedBagException.addendIsNull();
     }
 
     IntLinkedBag sourceBag = (addend == this) ? addend.clone() : addend;
@@ -52,7 +52,7 @@ public class IntLinkedBag implements Cloneable {
       copiedBag.headNode = copyNodeChain(headNode);
       return copiedBag;
     } catch (CloneNotSupportedException cloneNotSupportedException) {
-      throw new AssertionError("Clone should be supported", cloneNotSupportedException);
+      throw IntLinkedBagException.cloneShouldBeSupported(cloneNotSupportedException);
     }
   }
 
@@ -105,11 +105,11 @@ public class IntLinkedBag implements Cloneable {
 
   public static IntLinkedBag union(IntLinkedBag b1, IntLinkedBag b2) {
     if (b1 == null) {
-      throw new IllegalArgumentException("b1 is null.");
+      throw IntLinkedBagException.firstBagIsNull();
     }
 
     if (b2 == null) {
-      throw new IllegalArgumentException("b2 is null.");
+      throw IntLinkedBagException.secondBagIsNull();
     }
 
     IntLinkedBag answer = new IntLinkedBag();
@@ -172,7 +172,7 @@ public class IntLinkedBag implements Cloneable {
     long sumValue = (long) firstValue + secondValue;
 
     if (sumValue > Integer.MAX_VALUE) {
-      throw new OutOfMemoryError("Bag size overflow");
+      throw IntLinkedBagException.bagSizeOverflow();
     }
 
     return (int) sumValue;

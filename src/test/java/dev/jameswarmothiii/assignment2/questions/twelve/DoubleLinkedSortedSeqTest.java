@@ -118,14 +118,14 @@ class DoubleLinkedSortedSeqTest {
   void advanceShouldThrowWhenNoCurrent() {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::advance);
+    assertThrows(DoubleLinkedSortedSeqException.class, sequence::advance);
   }
 
   @Test
   void getCurrentShouldThrowWhenNoCurrent() {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::getCurrent);
+    assertThrows(DoubleLinkedSortedSeqException.class, sequence::getCurrent);
   }
 
   @Test
@@ -164,7 +164,7 @@ class DoubleLinkedSortedSeqTest {
   void removeCurrentShouldThrowWhenNoCurrent() {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
 
-    assertThrows(IllegalStateException.class, sequence::removeCurrent);
+    assertThrows(DoubleLinkedSortedSeqException.class, sequence::removeCurrent);
   }
 
   @Test
@@ -195,7 +195,7 @@ class DoubleLinkedSortedSeqTest {
   void addAllShouldThrowWhenAddendIsNull() {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
 
-    assertThrows(NullPointerException.class, () -> sequence.addAll(null));
+    assertThrows(DoubleLinkedSortedSeqException.class, () -> sequence.addAll(null));
   }
 
   @Test
@@ -228,9 +228,11 @@ class DoubleLinkedSortedSeqTest {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
 
     assertThrows(
-        NullPointerException.class, () -> DoubleLinkedSortedSeq.concatenation(sequence, null));
+        DoubleLinkedSortedSeqException.class,
+        () -> DoubleLinkedSortedSeq.concatenation(sequence, null));
     assertThrows(
-        NullPointerException.class, () -> DoubleLinkedSortedSeq.concatenation(null, sequence));
+        DoubleLinkedSortedSeqException.class,
+        () -> DoubleLinkedSortedSeq.concatenation(null, sequence));
   }
 
   @Test
@@ -262,8 +264,8 @@ class DoubleLinkedSortedSeqTest {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
     sequence.add(1.0);
 
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.getElementAt(-1));
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.getElementAt(1));
+    assertThrows(DoubleLinkedSortedSeqException.class, () -> sequence.getElementAt(-1));
+    assertThrows(DoubleLinkedSortedSeqException.class, () -> sequence.getElementAt(1));
   }
 
   @Test
@@ -284,7 +286,7 @@ class DoubleLinkedSortedSeqTest {
     DoubleLinkedSortedSeq sequence = new DoubleLinkedSortedSeq();
     sequence.add(1.0);
 
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.setCurrentToIndex(-1));
-    assertThrows(IndexOutOfBoundsException.class, () -> sequence.setCurrentToIndex(2));
+    assertThrows(DoubleLinkedSortedSeqException.class, () -> sequence.setCurrentToIndex(-1));
+    assertThrows(DoubleLinkedSortedSeqException.class, () -> sequence.setCurrentToIndex(2));
   }
 }
