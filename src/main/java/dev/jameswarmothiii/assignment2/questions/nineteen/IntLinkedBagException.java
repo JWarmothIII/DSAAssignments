@@ -14,11 +14,11 @@ public class IntLinkedBagException extends IllegalArgumentException {
   }
 
   public static IntLinkedBagException firstBagIsNull() {
-    return new IntLinkedBagException("b1 is null.");
+    return new IntLinkedBagException("bag1 is null.");
   }
 
   public static IntLinkedBagException secondBagIsNull() {
-    return new IntLinkedBagException("b2 is null.");
+    return new IntLinkedBagException("bag2 is null.");
   }
 
   public static IntLinkedBagException bagSizeOverflow() {

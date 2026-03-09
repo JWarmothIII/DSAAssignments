@@ -103,18 +103,18 @@ public class IntLinkedBag implements Cloneable {
     return totalElementCount;
   }
 
-  public static IntLinkedBag union(IntLinkedBag b1, IntLinkedBag b2) {
-    if (b1 == null) {
+  public static IntLinkedBag union(IntLinkedBag bag1, IntLinkedBag bag2) {
+    if (bag1 == null) {
       throw IntLinkedBagException.firstBagIsNull();
     }
 
-    if (b2 == null) {
+    if (bag2 == null) {
       throw IntLinkedBagException.secondBagIsNull();
     }
 
     IntLinkedBag answer = new IntLinkedBag();
-    answer.addAll(b1);
-    answer.addAll(b2);
+    answer.addAll(bag1);
+    answer.addAll(bag2);
     return answer;
   }
 
