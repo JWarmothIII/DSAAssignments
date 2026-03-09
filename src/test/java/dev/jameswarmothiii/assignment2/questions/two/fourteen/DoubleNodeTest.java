@@ -1,4 +1,4 @@
-package dev.jameswarmothiii.assignment2.questions.fourteen;
+package dev.jameswarmothiii.assignment2.questions.two.fourteen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import dev.jameswarmothiii.assignment2.questions.fourteen.DoubleNode;
 import org.junit.jupiter.api.Test;
 
 class DoubleNodeTest {
@@ -256,5 +255,46 @@ class DoubleNodeTest {
     assertNull(nodeCallingMethod.getPrevious());
     assertNull(nodeCallingMethod.getNext());
     assertEquals(2, DoubleNode.listLength(headNode));
+  }
+
+  @Test
+  void listCopyWithoutRepetitionsShouldReturnNullForNullSource() {
+    assertNull(DoubleNode.listCopyWithoutRepetitions(null));
+  }
+
+  @Test
+  void listCopyWithoutRepetitionsShouldRemoveDuplicateValues() {
+    DoubleNode sourceHeadNode = new DoubleNode(1.0, null, null);
+    sourceHeadNode.addNodeAfter(2.0);
+    sourceHeadNode.getNext().addNodeAfter(1.0);
+    sourceHeadNode.getNext().getNext().addNodeAfter(3.0);
+    sourceHeadNode.getNext().getNext().getNext().addNodeAfter(2.0);
+    sourceHeadNode.getNext().getNext().getNext().getNext().addNodeAfter(4.0);
+
+    DoubleNode uniqueHeadNode = DoubleNode.listCopyWithoutRepetitions(sourceHeadNode);
+
+    assertNotNull(uniqueHeadNode);
+    assertEquals(4, DoubleNode.listLength(uniqueHeadNode));
+    assertEquals(1.0, uniqueHeadNode.getData(), 0.000001);
+    assertEquals(2.0, uniqueHeadNode.getNext().getData(), 0.000001);
+    assertEquals(3.0, uniqueHeadNode.getNext().getNext().getData(), 0.000001);
+    assertEquals(4.0, uniqueHeadNode.getNext().getNext().getNext().getData(), 0.000001);
+  }
+
+  @Test
+  void listCopyWithoutRepetitionsShouldNotModifyOriginalList() {
+    DoubleNode sourceHeadNode = new DoubleNode(5.0, null, null);
+    sourceHeadNode.addNodeAfter(5.0);
+    sourceHeadNode.getNext().addNodeAfter(6.0);
+    sourceHeadNode.getNext().getNext().addNodeAfter(6.0);
+
+    DoubleNode uniqueHeadNode = DoubleNode.listCopyWithoutRepetitions(sourceHeadNode);
+
+    assertEquals(4, DoubleNode.listLength(sourceHeadNode));
+    assertEquals(2, DoubleNode.listLength(uniqueHeadNode));
+    assertEquals(5.0, sourceHeadNode.getData(), 0.000001);
+    assertEquals(5.0, sourceHeadNode.getNext().getData(), 0.000001);
+    assertEquals(6.0, sourceHeadNode.getNext().getNext().getData(), 0.000001);
+    assertEquals(6.0, sourceHeadNode.getNext().getNext().getNext().getData(), 0.000001);
   }
 }

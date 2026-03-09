@@ -1,4 +1,7 @@
-package dev.jameswarmothiii.assignment2.questions.fourteen;
+package dev.jameswarmothiii.assignment2.questions.two.fourteen;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class DoubleNode {
   private double dataValue;
@@ -61,6 +64,33 @@ public class DoubleNode {
 
   public static DoubleNode listCopy(DoubleNode sourceNode) {
     return listCopyWithTail(sourceNode)[0];
+  }
+
+  public static DoubleNode listCopyWithoutRepetitions(DoubleNode sourceHeadNode) {
+    if (sourceHeadNode == null) {
+      return null;
+    }
+
+    Set<Double> seenDataValues = new HashSet<>();
+    DoubleNode copiedHeadNode = null;
+    DoubleNode copiedTailNode = null;
+
+    for (DoubleNode currentSourceNode = sourceHeadNode;
+        currentSourceNode != null;
+        currentSourceNode = currentSourceNode.nextNode) {
+      if (!seenDataValues.add(currentSourceNode.dataValue)) {
+        continue;
+      }
+
+      if (copiedHeadNode == null) {
+        copiedHeadNode = new DoubleNode(currentSourceNode.dataValue, null, null);
+        copiedTailNode = copiedHeadNode;
+      } else {
+        copiedTailNode = new DoubleNode(currentSourceNode.dataValue, copiedTailNode, null);
+      }
+    }
+
+    return copiedHeadNode;
   }
 
   public static DoubleNode[] listCopyWithTail(DoubleNode sourceNode) {
