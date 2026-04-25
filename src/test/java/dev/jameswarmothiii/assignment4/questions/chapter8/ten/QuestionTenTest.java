@@ -53,14 +53,19 @@ class QuestionTenTest {
 
   @Test
   void guessShouldRejectInvalidRange() {
+    QuestionTenLogicService questionTenLogicService = new QuestionTenLogicService();
+
     assertThrows(
         QuestionTenException.class,
-        () -> QuestionTen.guess(0, 10, new Scanner(""), new PrintStream(new ByteArrayOutputStream())));
+        () ->
+            questionTenLogicService.guess(
+                0, 10, new Scanner(""), new PrintStream(new ByteArrayOutputStream())));
   }
 
   @Test
   void guessTwoParameterMethodShouldRequireSessionSetup() {
-    assertThrows(QuestionTenException.class, () -> QuestionTen.guess(1, 10));
+    QuestionTenLogicService questionTenLogicService = new QuestionTenLogicService();
+    assertThrows(QuestionTenException.class, () -> questionTenLogicService.guess(1, 10));
   }
 
   @Test
@@ -70,7 +75,8 @@ class QuestionTenTest {
     assertThrows(
         QuestionTenException.class,
         () ->
-            QuestionTen.guess(
+            new QuestionTenLogicService()
+                .guess(
                 1,
                 2,
                 new Scanner(answerScript),
@@ -82,12 +88,10 @@ class QuestionTenTest {
     ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
     PrintStream outputStream = new PrintStream(outputBytes);
 
+    QuestionTenLogicService questionTenLogicService = new QuestionTenLogicService();
     int guessedNumber =
-        QuestionTen.guess(
-            1,
-            100,
-            new Scanner("maybe" + System.lineSeparator() + "yes" + System.lineSeparator()),
-            outputStream);
+        questionTenLogicService.guess(
+            1, 100, new Scanner("maybe" + System.lineSeparator() + "yes" + System.lineSeparator()), outputStream);
 
     assertEquals(50, guessedNumber);
     assertTrue(outputBytes.toString(StandardCharsets.UTF_8).contains("Please answer yes or no."));
@@ -103,6 +107,8 @@ class QuestionTenTest {
             + "n"
             + System.lineSeparator()
             + "Y"
+            + System.lineSeparator()
+            + "Y"
             + System.lineSeparator();
 
     int guessedNumber = runGuessWithInput(1, 100, answerScript);
@@ -110,10 +116,8 @@ class QuestionTenTest {
   }
 
   private static int runGuessWithInput(int lowValue, int highValue, String answerScript) {
-    return QuestionTen.guess(
-        lowValue,
-        highValue,
-        new Scanner(answerScript),
-        new PrintStream(new ByteArrayOutputStream()));
+    QuestionTenLogicService questionTenLogicService = new QuestionTenLogicService();
+    return questionTenLogicService.guess(
+        lowValue, highValue, new Scanner(answerScript), new PrintStream(new ByteArrayOutputStream()));
   }
 }
